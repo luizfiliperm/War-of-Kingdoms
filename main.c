@@ -141,9 +141,9 @@ void showCharacter(int position){
     printf("Stamin: %d\n", chooseCharacter.stamina);
     printf("Ataque: %d\n", chooseCharacter.attack);
     printf("Defesa: %d\n", chooseCharacter.defense);
-    printf("Chance de Esquiva: %d\n", chooseCharacter.dodgeChance);
-    printf("Chance de Critico: %d\n", chooseCharacter.criticalChance);
-    printf("Chance de Contra-Atacar: %d\n", chooseCharacter.counterChance);
+    printf("Chance de Esquiva: %d%%\n", chooseCharacter.dodgeChance);
+    printf("Chance de Critico: %d%%\n", chooseCharacter.criticalChance);
+    printf("Chance de Contra-Atacar: %d%%\n", chooseCharacter.counterChance);
     showSprite(chooseCharacter.sprite);
 }
 
