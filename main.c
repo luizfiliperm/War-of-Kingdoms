@@ -226,7 +226,9 @@ void showPlayersData(struct character player[2], int currentHp[2], int currentSt
     for(int i = 0; i < 2; i++){
         printf("P%d - %d/%d Hp\n     %d/%d Stamina\n", i+1, currentHp[i], player[i].hp, currentStamina[i], player[i].stamina);
     }
+    showDuelSprites(player[0].sprite, player[1].sprite);
     printf("Pressione enter para Continuar!\n");
+    
     getchar();
     system("cls");
 }
@@ -255,10 +257,9 @@ void checkWinner(int currentHpPlayer[2]){
             printf("EMPATE!!\n");
         }
     }
-    
 }
 
-int actions(int playerNumber, struct character player, int currentHp, int currentStamina, char playerSprite[100]){
+int actions(int playerNumber, struct character player, int currentHp, int currentStamina){
     int position = 0;
     int key = 0;
 
@@ -271,9 +272,11 @@ int actions(int playerNumber, struct character player, int currentHp, int curren
         arrow(0, position); printf("|| Atacar   ( -2 Stamina ) ||  \n");
         arrow(1, position); printf("|| Bloquear ( -1 Stamina ) ||  \n");
         arrow(2, position); printf("|| Esperar  ( +2 Stamina ) ||  \n");
-        showSprite(playerSprite);
+        showSprite(player.sprite);
+
         key = getch();
         fflush(stdin);
+
         if(key == 80 && position != 2){
             position++;
         }else if(key == 72 && position != 0){
@@ -281,8 +284,20 @@ int actions(int playerNumber, struct character player, int currentHp, int curren
         }else{
             position = position;
         }
+
+        if(key == 13  && currentStamina <= 1 && position == 0){
+            printf("Voce nao pode realizar esta açao!");
+            printf("\nPressione Enter para Selecionar novamente!");
+            getch();
+            key = 0;
+        }else if(key == 13 && currentStamina == 0 && position <= 1 ){
+            printf("Voce nao pode realizar esta açao!");
+            printf("\nPressione Enter para Selecionar novamente!");
+            getch();
+            key = 0;
+        }
     }
-    return position;
+    return position; 
 }
 
 void game(struct character player[2]){
@@ -295,18 +310,17 @@ void game(struct character player[2]){
 
     showPlayersData(player, currentHpPlayer, currentStaminaPlayer);
 
-
     system("cls");
     printf("Player 1: %s\n", player[0].gameClass);
     printf("Player 2: %s\n", player[1].gameClass);
-    printf("Estao prontos?[Pressione Enter botao para continuar]\n");
+    printf("Estao prontos?[Pressione Enter para continuar]\n");
     showDuelSprites(player[0].sprite, player[1].sprite);
     getchar();
 
     while(currentHpPlayer[0] > 0 && currentHpPlayer[1] > 0){
 
     for(int i = 0; i < 2; i++){
-        playersChoose[i] = actions(i + 1, player[i], currentHpPlayer[i], currentStaminaPlayer[i], player[i].sprite);
+        playersChoose[i] = actions(i + 1, player[i], currentHpPlayer[i], currentStaminaPlayer[i]);
     }
 
     system("cls");
@@ -367,8 +381,13 @@ void game(struct character player[2]){
     showDuelSprites(player[0].sprite, player[1].sprite);
     getchar();
 
+    showPlayersData(player, currentHpPlayer, currentStaminaPlayer);
     checkWinner(currentHpPlayer);
+    
+
     }
+    printf("Pressione Enter para voltar para o menu inicial!\n");
+    getch();
     system("cls");
     
 }
