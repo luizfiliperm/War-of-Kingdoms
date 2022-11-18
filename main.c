@@ -221,32 +221,6 @@ int menu(){
     return position;
 }
 
-int action(int playerName,int totalPlayerHp, int currentHp, int currentStamina, int totalPlayerStamina){
-    int position = 0;
-    int key = 0;
-
-    while(key != 13){
-        system("cls");
-        printf("Vez de: %s!\n", playerName);
-        printf("HP: %d/%d\nStamina: %d/%d", currentHp,totalPlayerHp, currentStamina, totalPlayerStamina);
-
-        printf("\nEscolha sua acao:\n");
-        arrow(0, position); printf("|| Atacar   ( -2 Stamina ) ||  \n");
-        arrow(1, position); printf("|| Bloquear ( -1 Stamina ) ||  \n");
-        arrow(2, position); printf("|| Esperar  ( +2 Stamina ) ||  \n");
-        key = getch();
-        fflush(stdin);
-        if(key == 80 && position != 2){
-            position++;
-        }else if(key == 72 && position != 0){
-            position --;
-        }else{
-            position = position;
-        }
-    }
-    return position;
-}
-
 void showPlayersData(struct character player[2], int currentHp[2], int currentStamina[2]){
     system("cls");
     for(int i = 0; i < 2; i++){
@@ -284,7 +258,7 @@ void checkWinner(int currentHpPlayer[2]){
     
 }
 
-int actions(int playerNumber, struct character player, int currentHp, int currentStamina){
+int actions(int playerNumber, struct character player, int currentHp, int currentStamina, char playerSprite[100]){
     int position = 0;
     int key = 0;
 
@@ -297,6 +271,7 @@ int actions(int playerNumber, struct character player, int currentHp, int curren
         arrow(0, position); printf("|| Atacar   ( -2 Stamina ) ||  \n");
         arrow(1, position); printf("|| Bloquear ( -1 Stamina ) ||  \n");
         arrow(2, position); printf("|| Esperar  ( +2 Stamina ) ||  \n");
+        showSprite(playerSprite);
         key = getch();
         fflush(stdin);
         if(key == 80 && position != 2){
@@ -331,7 +306,7 @@ void game(struct character player[2]){
     while(currentHpPlayer[0] > 0 && currentHpPlayer[1] > 0){
 
     for(int i = 0; i < 2; i++){
-        playersChoose[i] = actions(i + 1, player[i], currentHpPlayer[i], currentStaminaPlayer[i]);
+        playersChoose[i] = actions(i + 1, player[i], currentHpPlayer[i], currentStaminaPlayer[i], player[i].sprite);
     }
 
     system("cls");
