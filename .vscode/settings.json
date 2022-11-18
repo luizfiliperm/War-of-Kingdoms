@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "django-html": "html",
+        "*.php": "php",
+        "string.h": "c"
+    }
+}

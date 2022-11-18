@@ -83,13 +83,13 @@ struct character allCharacters(int choose){
     return character[choose];
 }
 
-void showSprite(char spriteName){
+void showSprite(char spriteName[100]){
     FILE *sprite = fopen(spriteName, "r");
     char line[100];
     int lineSize;
 
     if(sprite == NULL){
-        printf("Error Occurred while Opening the File!");
+        printf("Erro ao abrir o arquivo");
     }else{
         while(fgets(line, sizeof(line), sprite)){
             lineSize = strlen(line);
@@ -98,7 +98,41 @@ void showSprite(char spriteName){
             }
         }
     }
+    printf("\n");
     fclose(sprite);
+}
+
+void showDuelSprites(char spriteP1[100], char spriteP2[100]){
+
+    FILE *leftSprite = fopen(spriteP1, "r");
+    FILE *rightSprite = fopen(spriteP2, "r");
+
+    char leftLine[100], rightLine[100];
+    int leftLineSize, rightLineSize;
+
+    if(leftSprite == NULL || rightSprite == NULL){
+        printf("Erro ao abrir o arquivo");
+    }else{
+        while(fgets(leftLine, sizeof(leftLine), leftSprite)){
+            fgets(rightLine, sizeof(rightLine), rightSprite);
+
+            leftLineSize = strlen(leftLine);
+            rightLineSize = strlen(rightLine);
+
+            for(int i = 0; i < leftLineSize; i++){
+                if(leftLine[i] != '\n'){
+                    printf("%c", leftLine[i]);
+                }
+            }
+            for(int i = rightLineSize - 1; i >= 0; i--){
+                printf("%c", rightLine[i]);
+            }
+        }
+    }
+    printf("\n");
+
+    fclose(leftSprite);
+    fclose(rightSprite);
 }
 
 void showCharacter(int position){
@@ -290,7 +324,8 @@ void game(struct character player[2]){
     system("cls");
     printf("Player 1: %s\n", player[0].gameClass);
     printf("Player 2: %s\n", player[1].gameClass);
-    printf("Estao prontos?[Pressione Enter botao para continuar] ");
+    printf("Estao prontos?[Pressione Enter botao para continuar]\n");
+    showDuelSprites(player[0].sprite, player[1].sprite);
     getchar();
 
     while(currentHpPlayer[0] > 0 && currentHpPlayer[1] > 0){
@@ -353,7 +388,8 @@ void game(struct character player[2]){
         currentHpPlayer[0]  -= resultedHp;
     }
 
-    printf("\nPressione Enter para continuar");
+    printf("\nPressione Enter para continuar!\n");
+    showDuelSprites(player[0].sprite, player[1].sprite);
     getchar();
 
     checkWinner(currentHpPlayer);
