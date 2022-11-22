@@ -241,7 +241,7 @@ int percentage(int chance){
     if (r <= chance){
     return 1;
    }
-   return 0;
+    return 0;
 }
 
 
@@ -348,6 +348,7 @@ void game(struct character player[2]){
         }
     }
     
+    roundResult(playersChoose,player,currentHpPlayer);
 
     resultedHp = 0;
 
@@ -392,24 +393,32 @@ void game(struct character player[2]){
     
 }
 
-void history(){
+
+void printTxtFile(char txtName[100], int delay){
+    setlocale(LC_ALL, "Portuguese");
     system("cls");
+    FILE *txtFile;
 
-    char historia[500] = "Em uma terra distante, existem dois reinos rivais, a paz entre \nos dois era um fio fino que a qualquer momento poderia romper,\nestourando a maior guerra ja vista pelos dois povos, para evitar \nos possiveis danos os reis concordaram em criar um evento anual \nde batalhas entre seus representantes, lutando entre si em busca \nda gloria para honrar o seu reino. \n\nQuem sera o grande vencedor dessa batalha?";
-
-    int cont = 0;
-
-    cont = strlen(historia);
-
-    for (int i = 0; i < cont; ++i){
-        printf("%c", historia[i]);
-        Sleep(1);
-    } 
-
+    txtFile = fopen(txtName, "r");
+    char line[100]; 
+    int lenLine;
+    
+    while(fgets(line, sizeof(line), txtFile)){
+        lenLine = strlen(line);
+        for(int i = 0; i < lenLine; i++){
+            if(delay){
+                Sleep(delay);
+            }
+            printf("%c", line[i]);
+        }
+    }
+    printf("\n\nPressione Enter para continuar!");
     getch();
-} 
+    fclose(txtFile);
+}
 
 void main(){   
+    setlocale(LC_ALL, "Portuguese");
     struct character player[2];
     int playerChoose;
     int menuChoose = 0;
@@ -418,7 +427,7 @@ void main(){
         menuChoose =  menu();
         switch (menuChoose){
             case 0: // StartGame
-                history();
+                printTxtFile("texts/history.txt", 30);
                 for(int i = 0; i < 2; i++){
                     playerChoose = characterSelecion(i + 1);
                     player[i] = allCharacters(playerChoose);
@@ -426,7 +435,7 @@ void main(){
                 game(player);
                 break;
             case 1: // Rules
-                
+                printTxtFile("texts/rules.txt", 0);
                 break;
             case 2: // Quit
 
@@ -437,4 +446,5 @@ void main(){
         }
     }while(menuChoose != 2);
     printf("Obrigado por jogar!");
+    
 }
