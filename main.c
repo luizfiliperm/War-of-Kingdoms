@@ -9,7 +9,7 @@
 typedef struct character{
     char gameClass[100];
     char sprite[100];
-
+    char playerName[100];
     struct stats{
         int hp;
         int stamina;
@@ -27,57 +27,57 @@ struct character allCharacters(int choose){
     // Warrior[0]
 
     strcpy(character[0].gameClass, "Guerreiro");
-    character[0].hp = 26;
+    character[0].hp = 42;
     character[0].stamina = maxStamina;
-    character[0].attack = 8;
-    character[0].defense = 6;
+    character[0].attack = 10;
+    character[0].defense = 8;
     character[0].criticalChance = 0;
-    character[0].dodgeChance = 10;
-    character[0].counterChance = 0;
+    character[0].dodgeChance = 20;
+    character[0].counterChance = 10;
     strcpy(character[0].sprite, "sprites/warrior.txt");
 
     // Assassin[1]
     strcpy(character[1].gameClass, "Assassino");
-    character[1].hp = 20;
+    character[1].hp = 33;
     character[1].stamina = maxStamina;
-    character[1].attack = 9;
-    character[1].defense = 1;
+    character[1].attack = 12;
+    character[1].defense = 4;
     character[1].criticalChance = 40;
-    character[1].dodgeChance = 10;
-    character[1].counterChance = 0;
+    character[1].dodgeChance = 30;
+    character[1].counterChance = 10;
     strcpy(character[1].sprite, "sprites/assassin.txt");
 
     // Swordsman[2]
     strcpy(character[2].gameClass, "Espadachim");
-    character[2].hp = 24;
+    character[2].hp = 33;
     character[2].stamina = maxStamina;
-    character[2].attack = 9;
-    character[2].defense = 1;
-    character[2].criticalChance = 20;
-    character[2].dodgeChance = 10;
-    character[2].counterChance = 0;
+    character[2].attack = 13;
+    character[2].defense = 5;
+    character[2].criticalChance = 10;
+    character[2].dodgeChance = 20;
+    character[2].counterChance = 30;
     strcpy(character[2].sprite, "sprites/swordsman.txt");
 
     // Barbarian[3]
     strcpy(character[3].gameClass, "Barbaro");
-    character[3].hp = 32;
+    character[3].hp = 48;
     character[3].stamina = maxStamina;
-    character[3].attack = 8;
-    character[3].defense = 3;
+    character[3].attack = 11;
+    character[3].defense = 5;
     character[3].criticalChance = 0;
     character[3].dodgeChance = 10;
-    character[3].counterChance = 0;
+    character[3].counterChance = 20;
     strcpy(character[3].sprite, "sprites/barbarian.txt");
 
     // Knight[4]
     strcpy(character[4].gameClass, "Cavaleiro");
-    character[4].hp = 26;
+    character[4].hp = 39;
     character[4].stamina = maxStamina;
-    character[4].attack = 8;
-    character[4].defense = 4;
+    character[4].attack = 11;
+    character[4].defense = 7;
     character[4].criticalChance = 10;
-    character[4].dodgeChance = 10;
-    character[4].counterChance = 100;
+    character[4].dodgeChance = 20;
+    character[4].counterChance = 10;
     strcpy(character[4].sprite, "sprites/cavalier.txt");
 
     return character[choose];
@@ -104,8 +104,8 @@ void showSprite(char spriteName[100]){
 
 void showDuelSprites(char spriteP1[100], char spriteP2[100]){
 
-    FILE *leftSprite = fopen(spriteP1, "r");
-    FILE *rightSprite = fopen(spriteP2, "r");
+    FILE *leftSprite = fopen(spriteP2, "r");
+    FILE *rightSprite = fopen(spriteP1, "r");
 
     char leftLine[100], rightLine[100];
     int leftLineSize, rightLineSize;
@@ -138,7 +138,7 @@ void showDuelSprites(char spriteP1[100], char spriteP2[100]){
 void showCharacter(int position){
     struct character chooseCharacter = allCharacters(position);
     printf("\nHP: %d\n", chooseCharacter.hp);
-    printf("Stamin: %d\n", chooseCharacter.stamina);
+    printf("Stamina: %d\n", chooseCharacter.stamina);
     printf("Ataque: %d\n", chooseCharacter.attack);
     printf("Defesa: %d\n", chooseCharacter.defense);
     printf("Chance de Esquiva: %d%%\n", chooseCharacter.dodgeChance);
@@ -254,13 +254,11 @@ int percentage(int chance){
 
 
 void checkWinner(int currentHpPlayer[2]){
-    int hpDifference = currentHpPlayer[0] - currentHpPlayer[1];
-
-    if(currentHpPlayer[0] < 0 || currentHpPlayer < 0){
-        if(hpDifference > 0){
-            printf("Player 1 Venceu!\n");
-        }else if(hpDifference < 0){
-            printf("Player 2 Venceu!\n");
+    if(currentHpPlayer[0] < 0 || currentHpPlayer[1] < 0){
+        if(currentHpPlayer[0] > currentHpPlayer[1]){
+            printf("Player 1 venceu!\n");
+        }else if(currentHpPlayer[1] > currentHpPlayer[0]){
+            printf("Player 2 venceu!\n");
         }else{
             printf("EMPATE!!\n");
         }
@@ -278,9 +276,9 @@ int actions(int playerNumber, struct character player, int currentHp, int curren
         printf("HP: %d/%d\nStamina: %d/%d", currentHp,player.hp, currentStamina, player.stamina);
 
         printf("\nEscolha sua acao:\n");
-        arrow(0, position); printf("|| Atacar   ( -2 Stamina )   (%d de dano)  ||  \n",player.attack);
-        arrow(1, position); printf("|| Bloquear ( -1 Stamina ) (%d de bloqueio)||  \n",player.defense);
-        arrow(2, position); printf("|| Esperar          ( +2 Stamina )        ||  \n");
+        arrow(0, position); printf("|| Atacar   ( -2 Stamina ) (%d de dano)             ||\n",player.attack);
+        arrow(1, position); printf("|| Bloquear ( -1 Stamina ) (%d de bloqueio)          ||\n",player.defense);
+        arrow(2, position); printf("|| Esperar  ( +2 Stamina ) (%d%% Chance de esquiva   ||\n",player.dodgeChance);
         showSprite(player.sprite);
 
         key = getch();
@@ -311,52 +309,50 @@ int actions(int playerNumber, struct character player, int currentHp, int curren
 
 int * roundResult(int playersChoose[2], struct character players[2], int currentPlayerHp[2]){
     // Both Attack
+    int p1Attack = players[0].attack, p2Attack = players[1].attack;
     if(playersChoose[0] == 0 && percentage(players[0].criticalChance)){
-            players[0].attack *= 1.5;
+            p1Attack *= 1.5;
             printf("Player 1 Critou!\n");
     }
     if(playersChoose[1] == 0 && percentage(players[1].criticalChance)){
-            players[1].attack *= 1.5;
+            p2Attack *= 1.5;
             printf("Player 2 Critou!\n");
     }
 
     if(playersChoose[0] == 0  && playersChoose[1] == 0){
 
-        currentPlayerHp[1] -= players[0].attack;
-        printf("\nO %s recebeu %d de dano!", players[1].gameClass, players[0].attack);
+        currentPlayerHp[1] -= p1Attack;
+        printf("\nO %s recebeu %d de dano!", players[1].gameClass, p1Attack);
 
-        currentPlayerHp[0] -= players[1].attack;
-        printf("O %s recebeu %d de dano!",players[0].gameClass, players[1].attack);
-
-
+        currentPlayerHp[0] -= p2Attack;
+        printf("O %s recebeu %d de dano!",players[0].gameClass, p2Attack);
 
     }else if(playersChoose[0] == 0 && playersChoose[1] == 1){
-        int damage = players[0].attack - players[1].defense;
+        int damage = p1Attack - players[1].defense;
 
-        printf("\nAtaque do player 1: %d\nDefesa do player 2: %d", players[0].attack ,players[1].defense);
+        printf("\nAtaque do player 1: %d\nDefesa do player 2: %d", p1Attack ,players[1].defense);
         printf("\nO Player 2 bloqueou %d de dano e perdeu %d de hp!\n", players[1].defense,damage);
-        currentPlayerHp[1] -= players[0].attack - players[1].defense;
+        currentPlayerHp[1] -= p1Attack - players[1].defense;
         if(percentage(players[1].counterChance)){
 
-            printf("\n\nO player 2 bloqueou parte do ataque, vê uma oportunidade e contra-atacou!!\n");
-            currentPlayerHp[0] -= players[1].attack / 2;
-            printf("O player 2 recebeu %d de dano no contra ataque!\n",  players[0].attack / 2);
+            printf("\n\nO player 2 bloqueou parte do ataque, mas viu uma oportunidade e contra-atacou!!\n");
+            currentPlayerHp[0] -= p2Attack / 2;
+            printf("O player 1 recebeu %d de dano do contra ataque!\n",  p1Attack / 2);
         }
 
     }else if(playersChoose[0] == 1 && playersChoose[1] == 0){
-        int damage = players[0].attack - players[1].defense;
+        int damage = p1Attack - players[1].defense;
 
-        printf("\nAtaque do player 2: %d\nDefesa do player 1: %d", players[1].attack ,players[0].defense);
+        printf("\nAtaque do player 2: %d\nDefesa do player 1: %d", p2Attack ,players[0].defense);
         printf("\nO Player 1 bloqueou %d de dano e perdeu %d de hp!\n", players[0].defense,damage);
 
-        currentPlayerHp[0] -= players[1].attack - players[0].defense;
-        printf("\nO Player 1 bloqueou %d do dano e perdeu %d de hp!\n", players[1].defense,damage);
+        currentPlayerHp[0] -= p2Attack - players[0].defense;
 
         if(percentage(players[0].counterChance)){
 
             printf("\n\nO player 1 bloqueou parte do ataque, vê uma oportunidade e contra-atacou!!\n");
-            currentPlayerHp[1] -= players[0].attack / 2;
-            printf("O player 2 recebeu %d de dano no contra ataque!\n",  players[1].attack / 2);
+            currentPlayerHp[1] -= p1Attack / 2;
+            printf("O player 2 recebeu %d de dano no contra ataque!\n",  p2Attack / 2);
 
         }
 
@@ -364,15 +360,15 @@ int * roundResult(int playersChoose[2], struct character players[2], int current
         if(percentage(players[1].dodgeChance)){
             printf("O %s conseguiu desviar!\n", players[1].gameClass);
         }else{
-            printf("O player 2 tomou %d de dano", players[0].attack);
-            currentPlayerHp[1] -= players[0].attack;
+            printf("O player 2 tomou %d de dano", p1Attack);
+            currentPlayerHp[1] -= p1Attack;
         }
     }else if(playersChoose[0] == 2  && playersChoose[1] == 0){
         if(percentage(players[0].dodgeChance)){
             printf("\nO %s conseguiu desviar!\n", players[0].gameClass);
         }else{
-            printf("O player 1 tomou %d de dano", players[1].attack);
-            currentPlayerHp[0] -= players[1].attack;
+            printf("O player 1 tomou %d de dano", p2Attack);
+            currentPlayerHp[0] -= p2Attack;
         }
     }else{
         printf("Nada acontece!\n");
@@ -445,7 +441,7 @@ void game(struct character player[2]){
     checkWinner(currentHpPlayer);
 
     }
-    printf("Pressione Enter para voltar para o menu inicial!\n");
+    printf("\n\nPressione Enter para voltar para o menu inicial!\n");
     getch();
     system("cls");
 
@@ -484,10 +480,12 @@ void main(){
         menuChoose =  menu();
         switch (menuChoose){
             case 0: // StartGame
-                printTxtFile("texts/history.txt", 30);
+                printTxtFile("texts/history.txt", 0);
                 for(int i = 0; i < 2; i++){
                     playerChoose = characterSelecion(i + 1);
                     player[i] = allCharacters(playerChoose);
+                    system("cls");
+                    printf("Player %d, insira seu nome: ", i + 1);
                 }
                 game(player);
                 break;
@@ -504,5 +502,5 @@ void main(){
     }while(menuChoose != 2);
     system("cls");
     printf("Obrigado por jogar!");
-
+    getch();
 }
