@@ -40,8 +40,8 @@ struct character allCharacters(int choose){
     strcpy(character[1].gameClass, "Assassino");
     character[1].hp = 33;
     character[1].stamina = maxStamina;
-    character[1].attack = 12;
-    character[1].defense = 4;
+    character[1].attack = 13;
+    character[1].defense = 3;
     character[1].criticalChance = 40;
     character[1].dodgeChance = 30;
     character[1].counterChance = 10;
@@ -79,6 +79,17 @@ struct character allCharacters(int choose){
     character[4].dodgeChance = 20;
     character[4].counterChance = 10;
     strcpy(character[4].sprite, "sprites/cavalier.txt");
+
+    // Archer[5]
+    strcpy(character[1].gameClass, "Arqueiro");
+    character[5].hp = 30;
+    character[5].stamina = maxStamina;
+    character[5].attack = 12;
+    character[5].defense = 3;
+    character[5].criticalChance = 40;
+    character[5].dodgeChance = 50;
+    character[5].counterChance = 10;
+    strcpy(character[5].sprite, "sprites/archer.txt");
 
     return character[choose];
 }
@@ -150,7 +161,7 @@ void showCharacter(int position){
 int characterSelecion(int playerNumber){
 
     int min = 0;
-    int max = 4;
+    int max = 5;
     int position = 0;
     int key = 0;
 
@@ -164,6 +175,7 @@ int characterSelecion(int playerNumber){
         arrow(2, position);printf("Espadachim\n");
         arrow(3, position);printf("Barbaro\n");
         arrow(4, position);printf("Cavaleiro\n");
+        arrow(5, position);printf("Arqueiro\n");
         showCharacter(position);
 
         key = getch();
@@ -192,7 +204,7 @@ void arrow(int realPosition, int arrowPosition){
 }
 
 void centralizeWidith(){
-    printf("                                                                       ");
+    printf("                                                                                              ");
 }
 void centralizeHeight(){
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -260,7 +272,7 @@ void checkWinner(int currentHpPlayer[2], struct character player[2]){
             showSprite(player[0].sprite);
         }else if(currentHpPlayer[1] > currentHpPlayer[0]){
             printf("Player 2 venceu!\n\n");
-            showSprite(player[0].sprite);
+            showSprite(player[1].sprite);
         }else{
             printf("EMPATE!!\n");
         }
@@ -280,7 +292,7 @@ int actions(int playerNumber, struct character player, int currentHp, int curren
         printf("\nEscolha sua acao:\n");
         arrow(0, position); printf("|| Atacar   ( -2 Stamina ) (%d de dano)             ||\n",player.attack);
         arrow(1, position); printf("|| Bloquear ( -1 Stamina ) (%d de bloqueio)          ||\n",player.defense);
-        arrow(2, position); printf("|| Esperar  ( +2 Stamina ) (%d%% Chance de esquiva   ||\n",player.dodgeChance);
+        arrow(2, position); printf("|| Esperar  ( +2 Stamina ) (%d%% Chance de esquiva)  ||\n",player.dodgeChance);
         showSprite(player.sprite);
 
         key = getch();
@@ -360,14 +372,14 @@ int * roundResult(int playersChoose[2], struct character players[2], int current
 
     }else if(playersChoose[0] == 0  && playersChoose[1] == 2){
         if(percentage(players[1].dodgeChance)){
-            printf("O %s conseguiu desviar!\n", players[1].gameClass);
+            printf("O player 2 conseguiu desviar!\n");
         }else{
             printf("O player 2 tomou %d de dano", p1Attack);
             currentPlayerHp[1] -= p1Attack;
         }
     }else if(playersChoose[0] == 2  && playersChoose[1] == 0){
         if(percentage(players[0].dodgeChance)){
-            printf("\nO %s conseguiu desviar!\n", players[0].gameClass);
+            printf("\nO player 1 conseguiu desviar!\n");
         }else{
             printf("O player 1 tomou %d de dano", p2Attack);
             currentPlayerHp[0] -= p2Attack;
@@ -482,7 +494,7 @@ void main(){
         menuChoose =  menu();
         switch (menuChoose){
             case 0: // StartGame
-                printTxtFile("texts/history.txt", 0);
+                printTxtFile("texts/history.txt", 50);
                 for(int i = 0; i < 2; i++){
                     playerChoose = characterSelecion(i + 1);
                     player[i] = allCharacters(playerChoose);
