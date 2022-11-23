@@ -253,12 +253,14 @@ int percentage(int chance){
 }
 
 
-void checkWinner(int currentHpPlayer[2]){
+void checkWinner(int currentHpPlayer[2], struct character player[2]){
     if(currentHpPlayer[0] < 0 || currentHpPlayer[1] < 0){
         if(currentHpPlayer[0] > currentHpPlayer[1]){
-            printf("Player 1 venceu!\n");
+            printf("Player 1 venceu!\n\n");
+            showSprite(player[0].sprite);
         }else if(currentHpPlayer[1] > currentHpPlayer[0]){
-            printf("Player 2 venceu!\n");
+            printf("Player 2 venceu!\n\n");
+            showSprite(player[0].sprite);
         }else{
             printf("EMPATE!!\n");
         }
@@ -438,7 +440,7 @@ void game(struct character player[2]){
     getchar();
 
     showPlayersData(player, currentHpPlayer, currentStaminaPlayer);
-    checkWinner(currentHpPlayer);
+    checkWinner(currentHpPlayer, player);
 
     }
     printf("\n\nPressione Enter para voltar para o menu inicial!\n");
