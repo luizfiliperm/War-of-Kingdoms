@@ -21,7 +21,7 @@ zar um ataque contra um inimigo.
 	Stamina: Quantidade de energia necessaria para reali-
 zar acoes como Atacar e Bloquear.
 
-	Chance de Crítico: Chance de realizar um ataque com
+	Chance de Critico: Chance de realizar um ataque com
 50% mais dano ao Atacar um inimigo.
 
 	Chance de Esquiva: Chance de realizar uma esquiva en-

@@ -80,16 +80,16 @@ struct character allCharacters(int choose){
     character[4].counterChance = 10;
     strcpy(character[4].sprite, "sprites/cavalier.txt");
 
-    // Archer[5]
-    strcpy(character[1].gameClass, "Arqueiro");
-    character[5].hp = 30;
-    character[5].stamina = maxStamina;
-    character[5].attack = 12;
-    character[5].defense = 3;
-    character[5].criticalChance = 40;
-    character[5].dodgeChance = 50;
-    character[5].counterChance = 10;
-    strcpy(character[5].sprite, "sprites/archer.txt");
+    // // Archer[5]
+    // strcpy(character[1].gameClass, "Arqueiro");
+    // character[5].hp = 30;
+    // character[5].stamina = maxStamina;
+    // character[5].attack = 12;
+    // character[5].defense = 3;
+    // character[5].criticalChance = 40;
+    // character[5].dodgeChance = 50;
+    // character[5].counterChance = 10;
+    // strcpy(character[5].sprite, "sprites/archer.txt");
 
     return character[choose];
 }
@@ -161,7 +161,7 @@ void showCharacter(int position){
 int characterSelecion(int playerNumber){
 
     int min = 0;
-    int max = 5;
+    int max = 4;
     int position = 0;
     int key = 0;
 
@@ -175,7 +175,6 @@ int characterSelecion(int playerNumber){
         arrow(2, position);printf("Espadachim\n");
         arrow(3, position);printf("Barbaro\n");
         arrow(4, position);printf("Cavaleiro\n");
-        arrow(5, position);printf("Arqueiro\n");
         showCharacter(position);
 
         key = getch();
@@ -204,10 +203,10 @@ void arrow(int realPosition, int arrowPosition){
 }
 
 void centralizeWidith(){
-    printf("                                                                                              ");
+    printf("                                                                                                           ");
 }
 void centralizeHeight(){
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 }
 
 int menu(){
@@ -277,7 +276,7 @@ void checkWinner(int currentHpPlayer[2], struct character player[2]){
             printf("EMPATE!!\n");
         }
     }
-    printf("\nPressione um botão para continuar");
+    printf("\nPressione Enter para continuar");
 }
 
 int actions(int playerNumber, struct character player, int currentHp, int currentStamina){
@@ -364,7 +363,7 @@ int * roundResult(int playersChoose[2], struct character players[2], int current
 
         if(percentage(players[0].counterChance)){
 
-            printf("\n\nO player 1 bloqueou parte do ataque, vê uma oportunidade e contra-atacou!!\n");
+            printf("\n\nO player 1 bloqueou parte do ataque, mas viu uma oportunidade e contra-atacou!!\n");
             currentPlayerHp[1] -= p1Attack / 2;
             printf("O player 2 recebeu %d de dano no contra ataque!\n",  p2Attack / 2);
 
