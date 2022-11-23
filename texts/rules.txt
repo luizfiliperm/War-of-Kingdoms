@@ -1,25 +1,25 @@
 ///--------------------------REGRAS--------------------------\\\
 
-> Seleção de Personagem
+> Selecionar Personagem
 
-	Na tela de seleção de personagens você e seu adversá-
+	Na tela de selecao de personagens voce e seu adversa-
 rio podem escolher entre 5 personagens com atributos diferen-
 tes para valores de dano, vida, etc.
 
 ----------------------------------------------------------------
 > Atributos
 	
-	Vida: Quando esses pontos são zerados, o personagem
-é derrotado e o jogo termina.
+	Vida: Quando esses pontos sao zerados, o personagem
+eh derrotado e o jogo termina.
 
-	Defesa: Quantidade de pontos que serão reduzidos ao
+	Defesa: Quantidade de pontos que serao reduzidos ao
 bloquear um ataque inimigo.
 
 	Dano: Quantidade de dano a ser infligido quando reali-
 zar um ataque contra um inimigo.
 
-	Stamina: Quantidade de energia necessária para reali-
-zar ações como Atacar e Bloquear.
+	Stamina: Quantidade de energia necessaria para reali-
+zar acoes como Atacar e Bloquear.
 
 	Chance de Crítico: Chance de realizar um ataque com
 50% mais dano ao Atacar um inimigo.
@@ -32,11 +32,11 @@ ataque com dano reduzido ao ser atingido pelo inimigo enquanto
 Bloqueia.
 
 ----------------------------------------------------------------
-> Ações
+> Acoes
 
 	Atacar: Gasta 2 de Stamina para realizar um ataque que
 inflige o Dano base do personagem. Dependendo do personagem,
-existe a chance de causar dano crítico.
+existe a chance de causar dano critico.
 
 	Bloquear: Gasta 1 de Stamina para realizar um bloqueio
 que reduz o dano infligido pelo inimigo (a Defesa do personagem
@@ -48,8 +48,8 @@ Stamina. Dependedo do personagem, existe uma chance de Esquivar
 de um ataque inimigo.
 
 ----------------------------------------------------------------
-> Dinâmina do Jogo
+> Dinamina do Jogo
 
-	O jogo é dividido em turnos em que cada jogador reali-
-za uma ação. Quando um dos personagens é derrotado, o outro é
+	O jogo eh dividido em turnos em que cada jogador reali-
+za uma acao. Quando um dos personagens eh derrotado, o outro eh
 declarado vencedor e o jogo termina.

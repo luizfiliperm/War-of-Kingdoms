@@ -2,6 +2,7 @@
     "files.associations": {
         "django-html": "html",
         "*.php": "php",
-        "string.h": "c"
+        "string.h": "c",
+        "stdlib.h": "c"
     }
 }
