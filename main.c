@@ -22,7 +22,7 @@ typedef struct character{
 };
 
 struct character allCharacters(int choose){
-    struct character character[7];
+    struct character character[6];
 
     // Warrior[0]
 
@@ -91,16 +91,6 @@ struct character allCharacters(int choose){
     character[5].counterChance = 10;
     strcpy(character[5].sprite, "sprites/archer.txt");
 
-    // Leo[6]
-    strcpy(character[6].gameClass, "Mago Leo");
-    character[6].hp = 42;
-    character[6].stamina = maxStamina;
-    character[6].attack = 12;
-    character[6].defense = 5;
-    character[6].criticalChance = 40;
-    character[6].dodgeChance = 30;
-    character[6].counterChance = 20;
-    strcpy(character[6].sprite, "sprites/leo.txt");
 
 
     return character[choose];
@@ -190,9 +180,6 @@ int characterSelecion(int playerNumber, int countGame){
         arrow(3, position);printf("Barbaro\n");
         arrow(4, position);printf("Cavaleiro\n");
         arrow(5, position);printf("Arqueiro\n");
-        if(max == 6){
-            arrow(6, position);printf("Mago Leo\n");
-        }
         showCharacter(position);
 
         key = getch();
