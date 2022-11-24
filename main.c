@@ -160,7 +160,7 @@ void showCharacter(int position){
     showSprite(chooseCharacter.sprite);
 }
 
-int characterSelecion(int playerNumber, int countGame){
+int characterSelecion(int playerNumber){
 
     int min = 0;
     int max = 5;
@@ -169,9 +169,7 @@ int characterSelecion(int playerNumber, int countGame){
 
     // key 13 -> ENTER
     while(key != 13){
-        if(countGame >= 2){
-            max = 6;
-        }
+
         system("cls");
         printf("Player %d, escolha seu personagem:\n", playerNumber);
         arrow(0, position);printf("Guerreiro\n");
