@@ -22,7 +22,7 @@ typedef struct character{
 };
 
 struct character allCharacters(int choose){
-    struct character character[5];
+    struct character character[7];
 
     // Warrior[0]
 
@@ -80,16 +80,28 @@ struct character allCharacters(int choose){
     character[4].counterChance = 10;
     strcpy(character[4].sprite, "sprites/cavalier.txt");
 
-    // // Archer[5]
-    // strcpy(character[1].gameClass, "Arqueiro");
-    // character[5].hp = 30;
-    // character[5].stamina = maxStamina;
-    // character[5].attack = 12;
-    // character[5].defense = 3;
-    // character[5].criticalChance = 40;
-    // character[5].dodgeChance = 50;
-    // character[5].counterChance = 10;
-    // strcpy(character[5].sprite, "sprites/archer.txt");
+    // Arqueiro[5]
+    strcpy(character[5].gameClass, "Arqueiro");
+    character[5].hp = 30;
+    character[5].stamina = maxStamina;
+    character[5].attack = 12;
+    character[5].defense = 3;
+    character[5].criticalChance = 40;
+    character[5].dodgeChance = 50;
+    character[5].counterChance = 10;
+    strcpy(character[5].sprite, "sprites/archer.txt");
+
+    // Leo[6]
+    strcpy(character[6].gameClass, "Mago Leo");
+    character[6].hp = 42;
+    character[6].stamina = maxStamina;
+    character[6].attack = 12;
+    character[6].defense = 5;
+    character[6].criticalChance = 40;
+    character[6].dodgeChance = 30;
+    character[6].counterChance = 20;
+    strcpy(character[6].sprite, "sprites/leo.txt");
+
 
     return character[choose];
 }
@@ -158,16 +170,18 @@ void showCharacter(int position){
     showSprite(chooseCharacter.sprite);
 }
 
-int characterSelecion(int playerNumber){
+int characterSelecion(int playerNumber, int countGame){
 
     int min = 0;
-    int max = 4;
+    int max = 5;
     int position = 0;
     int key = 0;
 
     // key 13 -> ENTER
     while(key != 13){
-
+        if(countGame >= 2){
+            max = 6;
+        }
         system("cls");
         printf("Player %d, escolha seu personagem:\n", playerNumber);
         arrow(0, position);printf("Guerreiro\n");
@@ -175,6 +189,10 @@ int characterSelecion(int playerNumber){
         arrow(2, position);printf("Espadachim\n");
         arrow(3, position);printf("Barbaro\n");
         arrow(4, position);printf("Cavaleiro\n");
+        arrow(5, position);printf("Arqueiro\n");
+        if(max == 6){
+            arrow(6, position);printf("Mago Leo\n");
+        }
         showCharacter(position);
 
         key = getch();
@@ -265,7 +283,7 @@ int percentage(int chance){
 
 
 void checkWinner(int currentHpPlayer[2], struct character player[2]){
-    if(currentHpPlayer[0] < 0 || currentHpPlayer[1] < 0){
+    if(currentHpPlayer[0] <= 0 || currentHpPlayer[1] <= 0){
         if(currentHpPlayer[0] > currentHpPlayer[1]){
             printf("Player 1 venceu!\n\n");
             showSprite(player[0].sprite);
@@ -488,19 +506,19 @@ void main(){
     struct character player[2];
     int playerChoose;
     int menuChoose = 0;
-
+    int count = 1;
     do{
         menuChoose =  menu();
         switch (menuChoose){
             case 0: // StartGame
-                printTxtFile("texts/history.txt", 50);
+                printTxtFile("texts/history.txt", 20);
                 for(int i = 0; i < 2; i++){
-                    playerChoose = characterSelecion(i + 1);
+                    playerChoose = characterSelecion(i + 1, count);
                     player[i] = allCharacters(playerChoose);
                     system("cls");
-                    printf("Player %d, insira seu nome: ", i + 1);
                 }
                 game(player);
+                count++;
                 break;
             case 1: // Rules
                 printTxtFile("texts/rules.txt", 0);
