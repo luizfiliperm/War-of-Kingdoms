@@ -22,7 +22,7 @@ typedef struct character{
 };
 
 struct character allCharacters(int choose){
-    struct character character[6];
+    struct character character[5];
 
     // Warrior[0]
 
@@ -491,19 +491,17 @@ void main(){
     struct character player[2];
     int playerChoose;
     int menuChoose = 0;
-    int count = 1;
     do{
         menuChoose =  menu();
         switch (menuChoose){
             case 0: // StartGame
                 printTxtFile("texts/history.txt", 20);
                 for(int i = 0; i < 2; i++){
-                    playerChoose = characterSelecion(i + 1, count);
+                    playerChoose = characterSelecion(i + 1);
                     player[i] = allCharacters(playerChoose);
                     system("cls");
                 }
                 game(player);
-                count++;
                 break;
             case 1: // Rules
                 printTxtFile("texts/rules.txt", 0);
